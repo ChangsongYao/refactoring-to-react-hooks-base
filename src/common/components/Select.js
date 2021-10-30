@@ -8,6 +8,7 @@ function Select({ options, setSelecteIndex }) {
     let [selectedIndex, setSelectedIndex] = useState(0);
     return (
         <div>
+            <div>Please,select a chart</div>
             <select onChange={e => {
                 setSelectedIndex(e.target.selectedIndex)
                 console.log(e.target.selectedIndex)
