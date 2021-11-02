@@ -30,25 +30,22 @@ function useFetch(endpoint) {
         if (!endpoint) return;
 
         dispatch({ type: "FETCH_DATASET_START" });
-
         fetch(endpoint)
             .then(response => {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json();
-            })
-            .then(
-                json => {
-                    // save the data if everything is ok
-                    dispatch({ type: "FETCH_DATASET_SUCCESS", payload: json });
+            }).then(json => {
+                // save the data if everything is ok
+                dispatch({ type: "FETCH_DATASET_SUCCESS", payload: json });
 
-                }).catch(error => {
-                    // notify the state that there's an error
-                    dispatch({ type: "FETCH_DATASET_ERROR", payload: error.message });
-                }).finally(() => {
-                    // notify the state that we've finished loading
-                    // regardless of any error
-                    dispatch({ type: "FETCH_DATASET_FINISH" });
-                });
+            }).catch(error => {
+                // notify the state that there's an error
+                dispatch({ type: "FETCH_DATASET_ERROR", payload: error.message });
+            }).finally(() => {
+                // notify the state that we've finished loading
+                // regardless of any error
+                dispatch({ type: "FETCH_DATASET_FINISH" });
+            });
     }, [endpoint])
 
     return state;
