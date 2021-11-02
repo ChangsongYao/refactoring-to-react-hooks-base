@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRequest } from 'react'
 import PropTypes from 'prop-types'
 
 const Select = ({ handleChange, id, label, options }) => {

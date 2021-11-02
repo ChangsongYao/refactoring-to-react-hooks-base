@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Select from '../../common/components/Select'
 import DataFetching from '../../common/components/DataFetching'
+import useRequest from '../../common/components/useRequest'
 
 if (process.env.NODE_ENV === "development") {
     console.log("development")
     const { Server } = require("miragejs");
     const { sales, subscriptions } = require("../../mocks");
-    // console.log(sales, subscriptions)
     new Server({
         routes() {
             this.namespace = process.env.REACT_APP_BASE_URL;
@@ -22,7 +22,6 @@ function DataFetchingContainer() {
         { label: "Subscription", value: `${process.env.REACT_APP_BASE_URL}/subscription/` }
     ];
     function handleSelect(event) {
-        console.log(event.target.value)
         setSelectedEndpoint(event.target.value);
     }
 
