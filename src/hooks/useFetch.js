@@ -1,13 +1,37 @@
-import { useState, useEffect } from 'react'
-function useFetch(endPoint) {
-    const [loading, setLoading] = useState("no");
-    const [error, setError] = useState("");
-    const [data, setData] = useState([]);
+import { useState, useEffect, useReducer } from 'react'
+
+const initialState = {
+    loading: false,
+    error: "",
+    data: []
+};
+
+function apiReducer(state, action) {
+    switch (action.type) {
+        case "FETCH_DATASET_START":
+            return { ...state, loading: true };
+        case "FETCH_DATASET_ERROR":
+            return { ...state, loading: false, error: action.payload };
+        case "FETCH_DATASET_SUCCESS":
+            return { ...state, loading: false, error: "", data: action.payload };
+        case "FETCH_DATASET_FINISH":
+            return { ...state, loading: false };
+        default:
+            return state;
+    }
+}
+function useFetch(endpoint) {
+
+
+    const [state, dispatch] = useReducer(apiReducer, initialState);
 
     useEffect(() => {
-        // notify the state that we've started an API call
-        setLoading("yes");
-        fetch(endPoint)
+        // Don't call the API if endpoint is null or empty
+        if (!endpoint) return;
+
+        dispatch({ type: "FETCH_DATASET_START" });
+
+        fetch(endpoint)
             .then(response => {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json();
@@ -15,19 +39,19 @@ function useFetch(endPoint) {
             .then(
                 json => {
                     // save the data if everything is ok
-                    setData(json);
+                    dispatch({ type: "FETCH_DATASET_SUCCESS", payload: json });
 
                 }).catch(error => {
                     // notify the state that there's an error
-                    setError(error.message);
+                    dispatch({ type: "FETCH_DATASET_ERROR", payload: error.message });
                 }).finally(() => {
                     // notify the state that we've finished loading
                     // regardless of any error
-                    setLoading("no");
+                    dispatch({ type: "FETCH_DATASET_FINISH" });
                 });
-    }, [endPoint])
+    }, [endpoint])
 
-    return { loading, error, data };
+    return state;
 }
 
 export default useFetch
