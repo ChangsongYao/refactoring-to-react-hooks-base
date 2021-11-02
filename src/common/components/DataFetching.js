@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import useFetch from '../../hooks/useFetch'
 
 const DataFetching = ({ endPoint }) => {
-    const data = useFetch(endPoint)
+    const { data } = useFetch(endPoint)
     return (
         <ul>
             {
