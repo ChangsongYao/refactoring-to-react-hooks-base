@@ -11,13 +11,14 @@ import DataFetching from "../../common/components/DataFetching";
 
 function DashboardShell() {
   const [selectedEndpoint, setSelectedEndpoint] = useState("");
+  const [selectedLabel, setsSlectedLabel] = useState("--");
   const optionsForSelect = [
     { label: "Sales", value: `${process.env.REACT_APP_BASE_URL}/sales/` },
     { label: "Subscription", value: `${process.env.REACT_APP_BASE_URL}/subscription/` }
   ];
 
   function handleSelect(event) {
-    console.log(event.target.value)
+    setsSlectedLabel(event.target.selectedOptions[0].label);
     setSelectedEndpoint(event.target.value);
   }
 
@@ -38,7 +39,7 @@ function DashboardShell() {
           Welcome, <span className="bold">learner!</span>
         </h1>
         <SummaryContainer />
-
+        <ChartContainer selectedLabel={selectedLabel} />
       </Main>
     </Layout>
   );
