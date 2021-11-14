@@ -4,8 +4,6 @@ import ChartContainer from "./ChartContainer";
 import Layout from "../../common/components/Layout";
 import Main from "../../common/components/Main";
 import SummaryContainer from "./SummaryContainer";
-import { connect } from "react-redux";
-import { fetchDataset } from "./DashboardSlice";
 import Select from "../../common/components/Select";
 import DataFetching from "../../common/components/DataFetching";
 

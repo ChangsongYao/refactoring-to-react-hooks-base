@@ -1,23 +1,23 @@
 import React, { useContext, createContext } from "react";
 import DashboardShell from "./features/Dashboard/DashboardShell";
 import DataFetchingContainer from "./features/Playground/DataFetchingContainer";
+import { sales } from "./mocks";
 
 const initialState = {
   loading: false,
   error: "",
-  data: [],
-  salesTotal: 0,
-  subscriptionsTotal: 0,
+  data: sales,
+  salesTotal: 3466,
+  subscriptionsTotal: 1492,
 };
 
-export const AppContext = createContext()
+export const GlobalContext = createContext()
 const App = () => {
   return (
-    <AppContext.Provider value={initialState}>
+    <GlobalContext.Provider value={initialState}>
       <DashboardShell />
-    </AppContext.Provider>
+    </GlobalContext.Provider>
   );
-  // return <DataFetchingContainer />
 };
 
 export default App;

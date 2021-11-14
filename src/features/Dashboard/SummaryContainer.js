@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { AppContext } from '../../App.js';
+import { GlobalContext } from '../../App.js';
 
 export default function SummaryContainer() {
 
 
-  const { salesTotal, subscriptionsTotal } = useContext(AppContext);
+  const { salesTotal, subscriptionsTotal } = useContext(GlobalContext);
 
   return (
     <div className="summary flex flex-row">
